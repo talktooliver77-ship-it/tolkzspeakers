@@ -263,6 +263,19 @@ ROSTER = [
     ("Fiona Luma Tankoh", "Personal Growth Speaker", "Yaoundé, Cameroon", None),
 ]
 
+# Verified headshots: each file is the speaker's own photo from the legacy
+# Tolkz platform records (production DB headshot_path / codebase-paired
+# testimonial images in the old tolkz repo). Speakers not listed here have
+# no verifiable photo on file and keep the monogram tile.
+PHOTOS = {
+    "Ebot Patience Ojong": "images/ebot-patience-ojong.jpg",
+    "Melanie Puemedji": "images/melanie-puemedji.jpg",
+    "Dr. Joybert Javnyuy": "images/joybert-javnyuy.jpg",
+    "Amengwo Mbah Dilan": "images/amengwo-mbah-dilan.jpg",
+    "Fonyuy Catherine Limnyuy": "images/fonyuy-catherine-limnyuy.jpg",
+    "Fiona Luma Tankoh": "images/fiona-luma-tankoh.jpg",
+}
+
 def initials(name):
     parts = [p for p in name.replace("Dr.", "").split() if p]
     if len(parts) == 1:
@@ -341,9 +354,9 @@ INDEX_BODY = """
   </div>
   <div class="sp-grid">
     """ + OLIVER_CARD + """
-    """ + speaker_card("Dr. Joybert Javnyuy", "Global Speaker &amp; Trainer · Enterprise Strategist &amp; Consultant", "Houston, USA") + """
+    """ + speaker_card("Dr. Joybert Javnyuy", "Global Speaker &amp; Trainer · Enterprise Strategist &amp; Consultant", "Houston, USA", photo="images/joybert-javnyuy.jpg") + """
     """ + speaker_card("Ly Smith", "Mindset Thought Leader", "Nevada, USA") + """
-    """ + speaker_card("Melanie Puemedji", "Leadership &amp; Personal Development Speaker, Jurist, Lecturer, Coach &amp; Writer", "Yaoundé, Cameroon") + """
+    """ + speaker_card("Melanie Puemedji", "Leadership &amp; Personal Development Speaker, Jurist, Lecturer, Coach &amp; Writer", "Yaoundé, Cameroon", photo="images/melanie-puemedji.jpg") + """
   </div>
   <p style="margin-top:26px;"><a class="btn navy" href="speakers.html">See the Full Roster</a></p>
 </div></section>
@@ -421,7 +434,8 @@ ABOUT_BODY = """
 
 # ---------------------------------------------------------------- speakers.html
 _roster_cards = "\n    ".join(
-    speaker_card(name, title, loc, talk=talk) for (name, title, loc, talk) in ROSTER
+    speaker_card(name, title, loc, talk=talk, photo=PHOTOS.get(name))
+    for (name, title, loc, talk) in ROSTER
 )
 SPEAKERS_BODY = """
 <section class="hero"><div class="wrap">
